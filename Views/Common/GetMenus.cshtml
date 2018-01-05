@@ -1,0 +1,56 @@
+﻿@model List<Iwg.Entities.Transverse.ItemMenu>
+
+ @foreach (var item in Model.Where(x => x.ParentId == null))
+ {
+    <li>
+        <a href="@(item.Url == null
+                ? Url.Action(item.Action, item.Controller)
+                : item.Url+"/")">
+            <i class="fa fa-@item.Icon fa-fw"></i>
+            <strong>  @item.DescriptionMenu</strong>
+            <span class="fa arrow"></span>
+        </a>
+        @{
+            var listChild = Model.Where(x => x.ParentId == item.Id);
+
+            if (listChild.Count() > 0)
+            {
+                <ul class="nav nav-second-level">
+                    @foreach (var sitem in listChild)
+                    {
+                        <li>
+                            <a href="@(sitem.Url == null
+                                    ? Url.Action(sitem.Action, sitem.Controller)
+                                    : sitem.Url+"/"+sitem.Controller+"/"+sitem.Action)">
+                                <i class="fa fa-@sitem.Icon fa-fw"></i>
+                                <strong>@sitem.DescriptionMenu</strong>
+                                <span class="fa arrow"></span>
+                            </a>
+                            @{
+                                var listChildTwo = Model.Where(x => x.ParentId == sitem.Id);
+
+                                if (listChildTwo.Count() > 0)
+                                {
+                                    <ul class="nav nav-third-level">
+                                        @foreach (var ssitem in listChildTwo)
+                                        {
+                                            <li>
+                                                <a href="@(ssitem.Url == null
+                                                        ? Url.Action(ssitem.Action, ssitem.Controller)
+                                                        : ssitem.Url+"/"+ssitem.Controller+"/"+ssitem.Action)">
+                                                    <i class="fa fa-@ssitem.Icon fa-fw"></i>
+                                                    @ssitem.DescriptionMenu
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            }
+                        </li>
+                                }
+                </ul>
+                                }
+        }
+
+    </li>
+                                }

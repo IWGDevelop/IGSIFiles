@@ -1,0 +1,7 @@
+﻿@{
+    this.ViewBag.Title = "Ingresar";
+}
+<h2>@this.ViewBag.Title.</h2>
+<p class="text-success">Usted no está dentro del sistema, ingrese con el botón de abajo.</p>
+
+@Html.ActionLink("Ingresar", "Index", "Home", null, new { @class="btn btn-primary" })
